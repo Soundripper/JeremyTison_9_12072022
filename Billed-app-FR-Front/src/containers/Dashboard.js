@@ -68,6 +68,17 @@ export const getStatus = (index) => {
 }
 
 export default class {
+  stateShowMenu = [
+    {
+      counter: undefined
+    },
+    {
+      counter: undefined
+    },
+    {
+      counter: undefined
+    }
+  ]
   constructor({ document, onNavigate, store, bills, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
@@ -86,13 +97,9 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-    console.log('-------------------------');
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    console.log('edit counter = ' + this.counter);
-    console.log('edit id = ' + this.id);
     if (this.counter % 2 === 0) {
-      console.log('modulo2 edit');
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
@@ -101,7 +108,6 @@ export default class {
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter ++
     } else {
-      console.log('else edit');
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
@@ -110,7 +116,6 @@ export default class {
       $('.vertical-navbar').css({ height: '120vh' })
       this.counter ++
     }
-    console.log('edit counter after = ' + this.counter);
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
@@ -138,22 +143,21 @@ export default class {
   
 
   handleShowTickets(e, bills, index) {
-    console.log('-------------------------');
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
-    console.log('show counter = ' + this.counter);
-    if (this.counter % 2 === 0) {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
+    // console.log(this.stateShowMenu[index-1]);
+    // if (this.counter === undefined || this.index !== index) this.counter = 0
+    if (this.stateShowMenu[index-1].counter === undefined ) this.stateShowMenu[index-1].counter = 0
+    // if (this.index === undefined || this.index !== index) this.index = index
+    if (this.stateShowMenu[index-1].counter % 2 === 0) {
+      $(`#arrow-icon${index}`).css({ transform: 'rotate(0deg)'})
+      $(`#status-bills-container${index}`)
+        .html(cards(filteredBills(bills, getStatus(index))))
+        this.stateShowMenu[index-1].counter ++
     } else {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-      $(`#status-bills-container${this.index}`)
+      $(`#arrow-icon${index}`).css({ transform: 'rotate(90deg)'})
+      $(`#status-bills-container${index}`)
         .html("")
-      this.counter ++
+      this.stateShowMenu[index-1].counter ++
     }
-    console.log('show counter after = ' + this.counter);
     bills.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
@@ -196,6 +200,6 @@ export default class {
   }
 }
 
-window.addEventListener('click', function (e){
-  console.log(e.target); 
-})
+// window.addEventListener('click', function (e){
+  // console.log(e.target); 
+// })

@@ -20,16 +20,21 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  // return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
-  if (!data || data.length === 0){
-    return '';
-  }
-  data.sort(function compare(a, b) {
+  // return (data && data.length) ? data.map(bill => row(bill)).join("") : "");
+  // if (!data || data.length === 0){
+  //   return '';
+  // }
+  const dataResult = Array.isArray(data) ? data.sort(function compare(a, b) {
     var dateA = new Date(a.date);
     var dateB = new Date(b.date);
     return dateB - dateA;
-  });
-  return data.map(bill => row(bill)).join("")
+  }) : [];
+  // data.sort(function compare(a, b) {
+  //   var dateA = new Date(a.date);
+  //   var dateB = new Date(b.date);
+  //   return dateB - dateA;
+  // });
+  return dataResult.map(bill => row(bill)).join("")
 }
 
 export default ({ data: bills, loading, error }) => {
