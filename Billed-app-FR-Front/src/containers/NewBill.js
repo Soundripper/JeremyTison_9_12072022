@@ -21,12 +21,10 @@ export default class NewBill {
     let fileName = ''
     let filePath = ''
     if (file.type.match('jpeg|jpg|png')) {
-      console.log("OK file type");
       filePath = e.target.value.split(/\\/g)
       fileName = filePath[filePath.length-1]
     }
     else {
-      console.log("BAD file type");
       document.querySelector(`input[data-testid="file"]`).value = "";
       filePath = ''
       fileName = ''

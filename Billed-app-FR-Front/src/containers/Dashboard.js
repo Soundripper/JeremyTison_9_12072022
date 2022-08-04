@@ -97,9 +97,17 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-    if (this.counter === undefined || this.id !== bill.id) this.counter = 0
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
+    // e.stopPropagation()
+    // e.preventDefault()
+    console.log("handleEditTicket");
+    if (this.counter === undefined || this.id !== bill.id) {
+      this.counter = 0
+    }
+    if (this.id === undefined || this.id !== bill.id) {
+      this.id = bill.id
+    }
     if (this.counter % 2 === 0) {
+      console.log("Modulo2");
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
@@ -108,6 +116,7 @@ export default class {
       $('.vertical-navbar').css({ height: '150vh' })
       this.counter ++
     } else {
+      console.log("else");
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
 
       $('.dashboard-right-container div').html(`
@@ -116,6 +125,7 @@ export default class {
       $('.vertical-navbar').css({ height: '120vh' })
       this.counter ++
     }
+    console.log("this.counter = " + this.counter);
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
@@ -143,6 +153,8 @@ export default class {
   
 
   handleShowTickets(e, bills, index) {
+    // e.stopPropagation()
+    // e.preventDefault()
     // console.log(this.stateShowMenu[index-1]);
     // if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.stateShowMenu[index-1].counter === undefined ) this.stateShowMenu[index-1].counter = 0

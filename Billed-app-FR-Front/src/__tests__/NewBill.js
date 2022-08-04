@@ -6,16 +6,18 @@ import { screen } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 
+import Bills from "../containers/Bills.js"
+import { bills } from "../fixtures/bills.js"
 import {waitFor} from "@testing-library/dom"
-import BillsUI from "../views/BillsUI.js"
 import {localStorageMock} from "../__mocks__/localStorage.js";
-import { ROUTES_PATH } from "../constants/routes.js";
-import router from "../app/Router.js";
+import { ROUTES, ROUTES_PATH } from "../constants/routes.js";
 import userEvent from "@testing-library/user-event"
+import Router from "../app/Router.js";
 
 describe("Given I am connected as an employee", () => {
   describe("When I am on NewBill Page", () => {
-    test("Then NewBill should be instanciated", async () => {
+
+    test("Then form new bill should be truthy", async () => {
       const root = document.createElement("div")
       root.setAttribute("id", "root")
       document.body.append(root)
@@ -24,7 +26,7 @@ describe("Given I am connected as an employee", () => {
       }
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
-        type: 'Admin'
+        type: 'Employee'
       }))
       const html = NewBillUI()
       document.body.innerHTML = html
@@ -35,14 +37,52 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => screen.getByText('Envoyer une note de frais'))
       const formNewBill = screen.getByTestId("form-new-bill")
       expect(formNewBill).toBeTruthy()
-
-      const fileChengeBtn = screen.getByTestId("file")
-      expect(fileChengeBtn).toBeTruthy()
-
-      // const fileChengeFn = jest.fn(() => newBillObj.handleChangeFile)
-      // fileChengeBtn.addEventListener('click', fileChengeFn)
-      // userEvent.click()
-      // expect(fileChengeFn).toHaveBeenCalled()
     })
+
+    // test("Then on click FileBtn fileChangeFunction should have been called", () => {
+    //   const onNavigate = (pathname) => {
+    //     document.body.innerHTML = ROUTES({ pathname })
+    //   }
+    //   const billsObj = new Bills({
+    //     document, onNavigate, store: null, bills:bills, localStorage: window.localStorage
+    //   })
+    //   const newBillObj = new NewBill({
+    //     document, onNavigate, store: null, localStorage: window.localStorage
+    //   })
+    //   const fileChengeBtn = screen.getByTestId("file")
+    //   expect(fileChengeBtn).toBeTruthy()
+    //   const fileChengeFn = jest.fn((e) => newBillObj.handleChangeFile(e))
+    //   fileChengeBtn.addEventListener('click', fileChengeFn)
+    //   const fakeFile = new File(['(⌐□_□)'], 'image.jpg', { type: 'image/jpg' });
+    //   userEvent.click(fileChengeBtn, {
+    //     target: { files: [fakeFile] }
+    //   });
+    //   expect(fileChengeFn).toHaveBeenCalled()
+    // })
+
+    // test("Then on click Submit handleSubmit should have been called", async () => {
+    //   const root = document.createElement("div")
+    //   root.setAttribute("id", "root")
+    //   document.body.append(root)
+    //   const onNavigate = (pathname) => {
+    //     document.body.innerHTML = ROUTES({ pathname })
+    //   }
+    //   Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+    //   window.localStorage.setItem('user', JSON.stringify({
+    //     type: 'Admin'
+    //   }))
+    //   const html = NewBillUI()
+    //   document.body.innerHTML = html
+    //   const newBillObj = new NewBill({
+    //     document, onNavigate, store: null, localStorage: window.localStorage
+    //   })
+    //   console.log = jest.fn();
+    //   const sendBillBtn = document.getElementById("btn-send-bill")
+    //   const handleSubmit = jest.fn((e) => handleSubmit(e))
+    //   sendBillBtn.addEventListener("click", handleSubmit)
+    //   userEvent.click(sendBillBtn)
+    //   expect(handleSubmit).toHaveBeenCalled()
+    // })
   })
 })
+
