@@ -6,6 +6,9 @@ import { screen } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import NewBill from "../containers/NewBill.js"
 
+import mockStore from "../__mocks__/store"
+jest.mock("../app/store", () => mockStore)
+
 import Bills from "../containers/Bills.js"
 import { bills } from "../fixtures/bills.js"
 import {waitFor} from "@testing-library/dom"
@@ -39,26 +42,33 @@ describe("Given I am connected as an employee", () => {
       expect(formNewBill).toBeTruthy()
     })
 
-    // test("Then on click FileBtn fileChangeFunction should have been called", () => {
-    //   const onNavigate = (pathname) => {
-    //     document.body.innerHTML = ROUTES({ pathname })
-    //   }
-    //   const billsObj = new Bills({
-    //     document, onNavigate, store: null, bills:bills, localStorage: window.localStorage
-    //   })
-    //   const newBillObj = new NewBill({
-    //     document, onNavigate, store: null, localStorage: window.localStorage
-    //   })
-    //   const fileChengeBtn = screen.getByTestId("file")
-    //   expect(fileChengeBtn).toBeTruthy()
-    //   const fileChengeFn = jest.fn((e) => newBillObj.handleChangeFile(e))
-    //   fileChengeBtn.addEventListener('click', fileChengeFn)
-    //   const fakeFile = new File(['(⌐□_□)'], 'image.jpg', { type: 'image/jpg' });
-    //   userEvent.click(fileChengeBtn, {
-    //     target: { files: [fakeFile] }
-    //   });
-    //   expect(fileChengeFn).toHaveBeenCalled()
-    // })
+    test("Then on click FileBtn fileChangeFunction should have been called", async () => {
+      // console.log = jest.fn();
+      // await waitFor(() => screen.getByText('Envoyer une note de frais'))
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
+
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
+      const billsObj = new Bills({
+        document, onNavigate, store: null, bills:bills, localStorage: window.localStorage
+      })
+      const newBillObj = new NewBill({
+        document, onNavigate, store: null, localStorage: window.localStorage
+      })
+      const fileChengeBtn = screen.getByTestId("file")
+      expect(fileChengeBtn).toBeTruthy()
+      const fileChengeFn = jest.fn((e) => newBillObj.handleChangeFile(e))
+      fileChengeBtn.addEventListener('click', fileChengeFn)
+      const fakeFile = new File(['(⌐□_□)'], 'image.jpg', { type: 'image/jpg' });
+      userEvent.click(fileChengeBtn, {
+        target: { files: [fakeFile] }
+      });
+      expect(fileChengeFn).toHaveBeenCalled()
+    })
 
     // test("Then on click Submit handleSubmit should have been called", async () => {
     //   const root = document.createElement("div")

@@ -171,6 +171,7 @@ export default class {
       this.stateShowMenu[index-1].counter ++
     }
     bills.forEach(bill => {
+      $(`#open-bill${bill.id}`).off()
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
