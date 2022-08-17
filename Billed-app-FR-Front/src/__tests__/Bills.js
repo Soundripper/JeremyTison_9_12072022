@@ -69,6 +69,8 @@ describe('When I am on Bills page and I click on buttonNewBill', () => {
     buttonNewBill.addEventListener('click', NewBill)
     userEvent.click(buttonNewBill)
     expect(NewBill).toHaveBeenCalled()
+    const pageTitle = await screen.getByText('Envoyer une note de frais')
+    expect(pageTitle).toBeTruthy()
   })
 })
 
@@ -86,7 +88,8 @@ describe('When I am on Bills page and I click on icon-eye', () => {
     // console.log(buttonEye);
     buttonEye.addEventListener('click', clickEye)
     buttonEye.click()
-    expect(clickEye).toHaveBeenCalled()    
+    expect(clickEye).toHaveBeenCalled()  
+    expect(document.querySelector('.modal')).toBeTruthy 
   })
 })
 

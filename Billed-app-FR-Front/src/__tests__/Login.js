@@ -225,6 +225,19 @@ describe("Given that I am a user on login page", () => {
 
     test("It should renders HR dashboard page", () => {
       expect(screen.queryByText("Validations")).toBeTruthy();
+    });    
+  });
+
+
+
+
+
+  describe("When login throws error", () => {
+    test("Then it should catch error", () => {
+      
     });
   });
+
+
+
 });
