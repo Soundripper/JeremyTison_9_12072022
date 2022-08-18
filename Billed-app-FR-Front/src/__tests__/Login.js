@@ -4,6 +4,7 @@
 
 import LoginUI from "../views/LoginUI";
 import Login from "../containers/Login.js";
+import { handleSubmitAdmin } from "../containers/Login.js";
 import { ROUTES } from "../constants/routes";
 import { fireEvent, screen } from "@testing-library/dom";
 
@@ -226,18 +227,71 @@ describe("Given that I am a user on login page", () => {
     test("It should renders HR dashboard page", () => {
       expect(screen.queryByText("Validations")).toBeTruthy();
     });    
-  });
 
 
 
 
 
-  describe("When login throws error", () => {
-    test("Then it should catch error", () => {
+
+
+
+    // test("It should throw error", async () => {
+    //   document.body.innerHTML = LoginUI();
+    //   const inputData = {
+    //     type: "Admin",
+    //     email: "johndoe@email.com",
+    //     password: "azerty",
+    //     status: "connected",
+    //   };
+
+    //   const inputEmailUser = screen.getByTestId("admin-email-input");
+    //   fireEvent.change(inputEmailUser, { target: { value: inputData.email } });
+    //   const inputPasswordUser = screen.getByTestId("admin-password-input");
+    //   fireEvent.change(inputPasswordUser, {target: { value: inputData.password },});
+
+    //   const onNavigate = (pathname) => {
+    //     document.body.innerHTML = ROUTES({ pathname });
+    //   };
+
+    //   let PREVIOUS_LOCATION = "";
+
+    //   const store = jest.fn();
+    //   const form = screen.getByTestId("form-admin");
+    //   const login = new Login({
+    //     document,
+    //     localStorage: window.localStorage,
+    //     onNavigate,
+    //     PREVIOUS_LOCATION,
+    //     store,
+    //   });
+
+    //   console.log(inputEmailUser.value)
+    //   console.log(inputPasswordUser.value)
+
+    //   const handleSubmit = jest.fn(login.handleSubmitAdmin);
+    //   login.login = jest.fn().mockResolvedValue(null);
+    //   form.addEventListener("submit", handleSubmit);
+    //   fireEvent.submit(form);
       
-    });
+    //     expect(() => {
+    //       handleSubmit('octopus');
+    //     }).toThrow();
+      
+    //   handleSubmit.mockReturnValue(undefined);
+
+    //   const mockUploadError = jest.fn(login.handleSubmitAdmin)
+    //   await handleSubmit
+    //   expect(handleSubmit).toHaveBeenCalled();
+
+    //   try {
+    //     await mockUploadError('aaas')
+    //   } catch (err) {
+
+    //   }
+    // });  
+    
+    
+
   });
-
-
 
 });

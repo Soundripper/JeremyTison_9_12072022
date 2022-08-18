@@ -69,10 +69,11 @@ describe("Given I am connected as an employee", () => {
       expect(fileChengeFn).toHaveBeenCalled()
       expect(numberOfFiles).toEqual(1)
 
-      const fakeFile2 = new File(['(⌐□_□)'], 'image.pdf', { type: 'image/pdf' });
+      const fakeFile2 = new File(['(⌐□_□)'], 'image.pdf', { type: 'application/pdf' });
       userEvent.click(fileChengeBtn, {
         target: { files: [fakeFile2] }
       });
+      expect(document.querySelector(`input[data-testid="file"]`).value).toEqual("")
     })
 
     test("Then on click Submit handleSubmit should have been called", async () => {
@@ -97,6 +98,7 @@ describe("Given I am connected as an employee", () => {
       sendBillBtn.addEventListener("click", handleSubmit)
       userEvent.click(sendBillBtn)
       expect(handleSubmit).toHaveBeenCalled()
+      expect(screen.getAllByText("Mes notes de frais")).toBeTruthy()
     })
   })
 })
