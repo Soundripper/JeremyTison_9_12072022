@@ -27,7 +27,7 @@ const rows = (data) => {
   const dataResult = Array.isArray(data) ? data.sort(function compare(a, b) {
     var dateA = new Date(a.date);
     var dateB = new Date(b.date);
-    return dateB - dateA;
+    return dateA - dateB;
   }) : [];
   // data.sort(function compare(a, b) {
   //   var dateA = new Date(a.date);
