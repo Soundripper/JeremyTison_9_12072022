@@ -20,20 +20,13 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  // return (data && data.length) ? data.map(bill => row(bill)).join("") : "");
-  // if (!data || data.length === 0){
-  //   return '';
-  // }
-  const dataResult = Array.isArray(data) ? data.sort(function compare(a, b) {
+
+  const dataResult = Array.isArray(data) ? data.sort(function (a, b) {
     var dateA = new Date(a.date);
     var dateB = new Date(b.date);
-    return dateA - dateB;
+    return dateB - dateA;
   }) : [];
-  // data.sort(function compare(a, b) {
-  //   var dateA = new Date(a.date);
-  //   var dateB = new Date(b.date);
-  //   return dateB - dateA;
-  // });
+
   return dataResult.map(bill => row(bill)).join("")
 }
 
